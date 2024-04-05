@@ -1,0 +1,8 @@
+Memory
+1. Add register size
+2. Add word concept
+3. Replace ref with HEX addressing
+4. Make a GUI
+
+Flip Flop
+1. Implementation without simple if statements
