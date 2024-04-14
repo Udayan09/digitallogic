@@ -1,5 +1,5 @@
 from typing import Any
-from digitallogic import dectohex, dectobin
+from digitallogic import dectohex, bin_address_convert
 
 class Memory:
     def __init__(self, ref):
@@ -12,12 +12,9 @@ class Memory:
         self.regs[register.add] = register
         self.sp += 1
     
-    def reg_add(self, reg):
-        r_to_add = {"R0":"00000000","R1":"00000001","R2":"00000010","R3":"00000011","R4":"00000100","R5":"00000101","R6":"000000110","R7":"00000111"}
-        return r_to_add[reg]
-    
     def store_data(self, data, address):
-        bin_data, bin_data_bits = dectobin(data, self.regs["00"].size)
+        bin_data = data
+        bin_data_bits = bin_address_convert(data) 
         if isinstance(self.regs[address],Register):
             if bin_data == -1:
                 bin_data = "0"*8
@@ -63,17 +60,6 @@ class Bit_address_register:
 
 main_memory = Memory("mem1")
 
-for i in range(64):
-    obj = Register(f"R{i}")
-    main_memory.add_register(obj)
-
-list_of_sfrs = ["ACC","B","IE","P0","P1","P3","P4","PCON","PSW","SCON","SBUF","SP","TMOD","TCON","TL0","TH0","TL1","TH1"]
-
-for j in list_of_sfrs:
-    obj = Bit_address_register(j)
-    main_memory.add_register(obj)
-main_memory.store_data(10,"00")
-
-for k in range(82,128):
-    obj = Bit_address_register(f"B{k}")
+for i in range(128):
+    obj = Register(f"M{i}")
     main_memory.add_register(obj)

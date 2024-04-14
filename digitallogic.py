@@ -90,8 +90,14 @@ def size_comp(val1, val2):
     else:
         if len(val1) != len(val2):
             return False
-    
-def dectobin(dec, size = 0):
+
+def bin_address_convert(bin):
+    bit_list = []
+    for i in bin:
+        bit_list.append(i)
+    return bit_list
+
+def dectobin(dec, size = 8):
     if dec == 0:
             return "0"*size
     binout = ""
@@ -222,6 +228,7 @@ def binary_xor_n(*args):
     return xor_out
 
 def hex_and(val1, val2):
+    bin1 = createbin(val1.hextobin())
     andoutbin = binary_and(val1, val2)
     hexout = andoutbin.binarytohex()
     hexouthex = createhex(hexout)
@@ -251,7 +258,7 @@ def full_adder(a, b, c):
     c = bin_or(bin_and(a,b),bin_and(s1,c))
     return sout,c 
     
-def nbit_add_sub(val1, val2, n, k = 0):                                 #Add: k = 0
+def nbit_add_sub(val1, val2, n = 8, k = 0):                                 #Add: k = 0
     if len(val1) > n or len(val2) > n:                              #Sub: k = 1
         print("Value greater than specified adder size")
         return
@@ -316,9 +323,9 @@ def mux8x1(a,b,c,d,e,f,g,h,sline):
     
 
 
-a = createbin("11011000")
-f = Flipflip()
-f.set_data(0)
+a = createhex("AB")
+b = createhex("7E")
+print(hex_and(a,b).value)
 # for i in a.value:
 #     if i == "1":
 #         print("-",end="",flush=True)
